@@ -4,7 +4,7 @@ Add support for CrushCSS using the Silverstripe Requirements Backend.
 This module comes with CSSCrush decoupled from the Requirements_Backend so you can integrate it with your
 own custom solutions.
 
-
+![stampy](https://cloud.githubusercontent.com/assets/3859574/21466336/9ce0c92c-ca1b-11e6-8eca-4f62a6c9e8bb.jpg)
 
 # Quick Install
 
@@ -25,14 +25,14 @@ Stampy\CSSCrush:
 
 2) Update your assets/.htaccess to allow the "map" file extension.
 Change from something like this:
-```
+```htaccess
 Deny from all
 <FilesMatch "\.(?i:html|htm|xhtml|js|css|bmp|png|gif|jpg|jpeg|ico|pcx|tif|tiff|au|mid|midi|mpa|mp3|ogg|m4a|ra|wma|wav|cda|avi|mpg|mpeg|asf|wmv|m4v|mov|mkv|mp4|ogv|webm|swf|flv|ram|rm|doc|docx|dotx|dotm|txt|rtf|xls|xlsx|xltx|xltm|pages|ppt|pptx|potx|potm|pps|csv|cab|arj|tar|zip|zipx|sit|sitx|svg|gz|tgz|bz2|ace|arc|pkg|dmg|hqx|jar|xml|pdf|gpx|kml)$">
 	Allow from all
 </FilesMatch>
 ```
 To this:
-```
+```htaccess
 Deny from all
 <FilesMatch "\.(?i:html|htm|xhtml|js|css|bmp|png|gif|jpg|jpeg|ico|pcx|tif|tiff|au|mid|midi|mpa|mp3|ogg|m4a|ra|wma|wav|cda|avi|mpg|mpeg|asf|wmv|m4v|mov|mkv|mp4|ogv|webm|swf|flv|ram|rm|doc|docx|dotx|dotm|txt|rtf|xls|xlsx|xltx|xltm|pages|ppt|pptx|potx|potm|pps|csv|cab|arj|tar|zip|zipx|sit|sitx|svg|gz|tgz|bz2|ace|arc|pkg|dmg|hqx|jar|xml|pdf|gpx|kml|map)$">
 	Allow from all
@@ -82,7 +82,7 @@ class CSSCrushExtension extends \Extension {
 
 # Configuration
 
-```
+```yml
 Stampy\CSSCrush:
   options:
     plugins:
@@ -90,7 +90,7 @@ Stampy\CSSCrush:
 ```
 
 # Roadmap
-- Add 'updateOptions' extend to CSSCrush. Mainly so you can potentially use variables from SiteConfig.
+- Add 'updateOptions' extend to CSSCrush. Mainly so you can potentially use variables from SiteConfig or similar. This will require changing the option system to only store options on /dev/build or post-flush to ensure compatibility with caching.
 
 ## Credits
 
