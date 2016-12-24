@@ -1,0 +1,14 @@
+{
+	"name": "silbinarywolf/silverstripe-stampycss",
+	"type": "silverstripe-module",
+	"description": "A module for integrating the CSSCrush PHP preprocessor with Silverstripe.",
+	"keywords": ["silverstripe", "stampy", "csscrush", "preprocessor"],
+	"license": "BSD-3-Clause",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
+		},
+		"installer-name": "stampycss"
+	},
+	"minimum-stability": "dev"
+}

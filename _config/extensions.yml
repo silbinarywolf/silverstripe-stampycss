@@ -1,0 +1,22 @@
+---
+Name: stampycss_extensions
+After:
+  - 'framework/*'
+  - 'cms/*'
+---
+SiteTree:
+  extensions:
+    [Stampy\SiteTreeExtension]
+Injector:
+  RequestProcessor:
+    properties:
+      filters:
+        - '%$Stampy\RequestFilter'
+---
+Only:
+  moduleexists: 'dynamiccache'
+  environment: 'dev'
+---
+DynamicCache:
+  extensions:
+    [Stampy\DevDynamicCacheExtension]
