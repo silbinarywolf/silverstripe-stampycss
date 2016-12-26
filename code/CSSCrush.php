@@ -6,8 +6,9 @@ use Config;
 use Debug;
 use Requirements;
 use SS_Cache;
+use Flushable;
 
-class CSSCrush extends Object {
+class CSSCrush extends Object implements Flushable {
 	const CACHE_KEY_PREFIX = 'csscrush';
 
 	/**
@@ -37,9 +38,16 @@ class CSSCrush extends Object {
 	/**
 	 * Check if $this->init() has been called
 	 *
-	 * @var booleans
+	 * @var boolean
 	 */
 	private $_has_init = false;
+
+	/**
+	 * Stops recompilation of files twice in one request
+	 *
+	 * @var boolean
+	 */
+	private $_has_recompiled_css = false;
 
 	/**
 	 * Tracked CSS files from cache (from a previous request)
@@ -94,6 +102,17 @@ class CSSCrush extends Object {
 
 		// NOTE(Jake): Having this might be nice?
 		//$this->extend('requireDefaultRecords');
+	}
+
+	/**
+	 * Called during ?flush=all
+	 */
+	public static function flush() {
+		$self = singleton(__CLASS__);
+		$self->recompileTrackedCSS();
+
+		// NOTE(Jake): Having this might be nice?
+		//$self->extend('flush');
 	}
 
 	/**
@@ -169,6 +188,10 @@ class CSSCrush extends Object {
 	 * can rebuild the CSS without re-running all the page logic.
 	 */
 	public function recompileTrackedCSS() {
+		if ($this->_has_recompiled_css) {
+			return;
+		}
+		$this->_has_recompiled_css = true;
 		$cssTracked = $this->loadFromCache();
 		if ($cssTracked === false) {
 			return;
