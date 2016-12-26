@@ -1,8 +1,7 @@
 ---
 Name: stampycss_extensions
 After:
-  - 'framework/*'
-  - 'cms/*'
+  - 'framework/*','cms/*'
 ---
 SiteTree:
   extensions:
@@ -13,6 +12,8 @@ Injector:
       filters:
         - '%$Stampy\RequestFilter'
 ---
+After:
+  - 'framework/*', 'cms/*'
 Only:
   moduleexists: 'dynamiccache'
   environment: 'dev'

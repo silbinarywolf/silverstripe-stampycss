@@ -62,11 +62,12 @@ class CSSCrush extends Object implements Flushable {
 	 * @return array|false
 	 */
 	public function css($filename, $media = null) {
+		if (substr($filename, 0, 9) === 'framework' || substr($filename, 0, 3) === 'cms') {
+			// Avoid preprocessing CSS from framework/cms folders.
+			// NOTE(Jake): Might require disabling/enabling on a per-module basis
+			return false;
+		}
 		$theme = $this->getTheme();
-		// NOTE(Jake): Perhaps disable in the CMS by default?
-		//if (!$theme) {
-		//	return false;
-		//}
 		$outputFilepath = $this->processCSS($filename);
 		$this->css_tracked[$theme][$filename] = array(
 			'output_file' => BASE_PATH.'/'.$outputFilepath,
@@ -108,6 +109,9 @@ class CSSCrush extends Object implements Flushable {
 	 * Called during ?flush=all
 	 */
 	public static function flush() {
+		// NOTE(Jake): Maybe move this to 'Utility' and then call
+		//			   singleton("CSSCrush")->flush(). That way, the entire
+		//			   function is injectorable.
 		$self = singleton(__CLASS__);
 		$self->recompileTrackedCSS();
 
